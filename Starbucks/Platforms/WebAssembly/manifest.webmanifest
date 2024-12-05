@@ -1,0 +1,10 @@
+{
+  "background_color": "#ffffff",
+  "description": "Starbucks",
+  "display": "standalone",
+  "name": "Starbucks",
+  "short_name": "Starbucks",
+  "start_url": "/index.html",
+  "theme_color": "#ffffff",
+  "scope": "/"
+}
