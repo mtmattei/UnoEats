@@ -1,0 +1,140 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="using:Starbucks">
+
+    <!-- Category Item Template -->
+    <DataTemplate x:Key="CategoryTemplate">
+        <StackPanel Width="70"
+                    Margin="0,0,12,0">
+            <Button Style="{StaticResource CategoryIconButtonStyle}">
+                <Image Source="{Binding IconSource}"
+                       Width="40"
+                       Height="40" />
+            </Button>
+            <TextBlock Style="{StaticResource CategoryTextStyle}"
+                       Text="{Binding Name}"
+                       Margin="0,8,0,0" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Store Item Template -->
+    <DataTemplate x:Key="StoreTemplate">
+        <StackPanel Width="70"
+                    Margin="0,0,12,0">
+            <Button Style="{StaticResource CategoryIconButtonStyle}"
+                    Background="White">
+                <Image Source="{Binding LogoSource}"
+                       Width="60"
+                       Height="60" />
+            </Button>
+            <TextBlock Style="{StaticResource StoreTextStyle}"
+                       Text="{Binding Name}"
+                       Margin="0,8,0,0" />
+            <TextBlock Style="{Binding IsFastDelivery, Converter={StaticResource BoolToStyleConverter},
+                        ConverterParameter='FastDeliveryTimeTextStyle,DeliveryTimeTextStyle'}"
+                       Text="{Binding DeliveryTime}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!-- Restaurant Item Template -->
+    <DataTemplate x:Key="RestaurantTemplate">
+        <Grid Margin="16,0,16,24"
+              RowDefinitions="Auto,Auto">
+            <Grid ColumnDefinitions="*,Auto">
+                <Image Grid.ColumnSpan="2"
+                       Height="180"
+                       Stretch="UniformToFill"
+                       Source="{Binding ImageSource}"
+                       HorizontalAlignment="Stretch" />
+
+                <Border Style="{StaticResource PromotionBannerStyle}"
+                        Visibility="{Binding HasPromotion, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Style="{StaticResource PromotionTextStyle}"
+                               Text="{Binding PromotionText}" />
+                </Border>
+
+                <Button Grid.Column="1"
+                        Margin="0,12,12,0"
+                        Padding="8"
+                        Background="Transparent"
+                        VerticalAlignment="Top">
+                    <FontIcon Glyph="&#xE00B;"
+                              Foreground="White" />
+                </Button>
+            </Grid>
+
+            <StackPanel Grid.Row="1"
+                        Margin="0,12,0,0">
+                <TextBlock Style="{StaticResource RestaurantNameStyle}"
+                           Text="{Binding Name}" />
+
+                <StackPanel Orientation="Horizontal"
+                            Margin="0,4,0,0">
+                    <FontIcon Glyph="&#xE734;"
+                              Foreground="#FFD700"
+                              FontSize="12"
+                              VerticalAlignment="Center"
+                              Visibility="{Binding HasPriority, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="{Binding DeliveryFee}"
+                               Margin="4,0,0,0" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="•"
+                               Margin="4,0" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="{Binding Rating}" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="{Binding ReviewCount}"
+                               Margin="4,0" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="•" />
+
+                    <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                               Text="{Binding DeliveryTime}"
+                               Margin="4,0,0,0" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </DataTemplate>
+
+    <!-- Uber One Promotion Template -->
+    <DataTemplate x:Key="UberOnePromotionTemplate">
+        <Grid Background="{StaticResource OrangeBrush}"
+              Margin="16,0,16,24"
+              Height="150">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Margin="24,24,0,24"
+                        VerticalAlignment="Center">
+                <TextBlock Text="CA$0 Delivery Fee + 5% off with Uber One"
+                           Foreground="White"
+                           FontSize="18"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap"
+                           MaxWidth="200" />
+
+                <Button Content="Try Now"
+                        Background="White"
+                        Foreground="Black"
+                        Padding="16,8"
+                        CornerRadius="20"
+                        Margin="0,16,0,0" />
+            </StackPanel>
+
+            <Image Grid.Column="1"
+                   Source="ms-appx:///Assets/Images/burger.png"
+                   Height="140"
+                   Width="140"
+                   Margin="0,0,16,0"
+                   VerticalAlignment="Center" />
+        </Grid>
+    </DataTemplate>
+</ResourceDictionary>

@@ -1,6 +1,6 @@
 <Project Sdk="Uno.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android;net8.0-windows10.0.26100;net8.0-browserwasm;net8.0-desktop</TargetFrameworks>
+    <TargetFrameworks>net9.0-android;net9.0-windows10.0.26100;net9.0-browserwasm;net9.0-desktop</TargetFrameworks>
 
     <OutputType>Exe</OutputType>
     <UnoSingleProject>true</UnoSingleProject>
@@ -42,9 +42,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Assets\Images\" />
+    <Folder Include="Themes\" />
   </ItemGroup>
   <ItemGroup>
     <Page Update="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Templates\DataTemplates.xaml">
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>

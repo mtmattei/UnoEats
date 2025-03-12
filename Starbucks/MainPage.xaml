@@ -4,312 +4,630 @@
       xmlns:local="using:Starbucks"
       xmlns:utu="using:Uno.Toolkit.UI"
       xmlns:um="using:Uno.Material"
-      xmlns:controls="using:Starbucks.Controls"
-      Background="#FFFFFF">
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      mc:Ignorable="d"
+      Background="{ThemeResource BackgroundColor}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!-- Reference the DataTemplates ResourceDictionary -->
+                <ResourceDictionary Source="ms-appx:///Templates/DataTemplates.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <!-- Main content -->
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel>
+                <!-- Top NavBar -->
+                <Grid ColumnDefinitions="*,*"
+                      Background="{ThemeResource BackgroundColor}"
+                      Padding="0,0,0,8">
 
-        <!-- Header Section -->
-        <StackPanel Grid.Row="0"
-                    Margin="16,40,16,0">
-            <Grid HorizontalAlignment="Center">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                    <utu:TabBar Grid.ColumnSpan="2"
+                                SelectedIndex="1"
+                                Background="Transparent">
+                        <utu:TabBarItem>
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <Image Source="ms-appx:///Assets/Images/car.png"
+                                       Height="24" />
+                                <TextBlock Text="Rides"
+                                           Foreground="{ThemeResource OnBackgroundColor}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </utu:TabBarItem>
+                        <utu:TabBarItem Background="{ThemeResource PrimaryColor}">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <Image Source="Assets/Images/ramen.png"
+                                       Height="24" />
+                                <TextBlock Text="Eats"
+                                           Foreground="{ThemeResource OnBackgroundColor}"
+                                           VerticalAlignment="Center" />
+                            </StackPanel>
+                        </utu:TabBarItem>
+                    </utu:TabBar>
+                </Grid>
 
-                <!-- Delivery Options -->
-                <StackPanel Orientation="Horizontal"
-                            Spacing="4">
-                    <Button Padding="20,8"
-                            CornerRadius="21"
-                            Background="{ThemeResource PrimaryColor}"
-                            Content="Delivery" />
-                    <Button Padding="20,8"
-                            CornerRadius="21"
-                            Style="{StaticResource TextButtonStyle}"
-                            Content="Pickup" />
-                    <Button Padding="20,8"
-                            CornerRadius="21"
-                            Style="{StaticResource TextButtonStyle}"
-                            Content="Dine-in" />
-                </StackPanel>
-            </Grid>
-
-            <!-- Location Selection -->
-            <Grid RowSpacing="8"
-                  HorizontalAlignment="Center"
-                  Margin="0,16,0,16">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBlock FontSize="{ThemeResource BodyLargeFontSize}"
-                           VerticalAlignment="Center"
-                           Text="Now • London Hall"
-                           Style="{ThemeResource SubtitleTextBlockStyle}" />
-                <Button HorizontalAlignment="Right"
-                        Grid.Column="1"
-                        Style="{StaticResource TextButtonStyle}">
-                    <FontIcon FontFamily="Segoe MDL2 Assets"
-                              Glyph="&#xE713;" />
-                </Button>
-            </Grid>
-
-            <ScrollViewer HorizontalScrollMode="Enabled"
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollMode="Disabled">
-                <StackPanel Orientation="Horizontal"
-                            HorizontalAlignment="Center"
-                            Spacing="8">
-                    <controls:CuisineButton LabelText="American">
-                        <controls:CuisineButton.IconContent>
-                            <Image Source="/Assets/Icons/hotdog.png"
-                                   Width="32"
-                                   Height="32" />
-                        </controls:CuisineButton.IconContent>
-                    </controls:CuisineButton>
-
-                    <controls:CuisineButton LabelText="Pizza">
-                        <controls:CuisineButton.IconContent>
-                            <Image Source="/Assets/Icons/pizza.png"
-                                   Width="32"
-                                   Height="32" />
-                        </controls:CuisineButton.IconContent>
-                    </controls:CuisineButton>
-                </StackPanel>
-            </ScrollViewer>
-
-            <!-- Small Square Buttons -->
-            <ScrollViewer HorizontalScrollMode="Enabled"
-                          HorizontalScrollBarVisibility="Hidden"
-                          VerticalScrollMode="Disabled">
-                <StackPanel Margin="0,4"
-                            Orientation="Horizontal"
-                            HorizontalAlignment="Center">
-                    <StackPanel HorizontalAlignment="Left">
-                        <Button VerticalAlignment="Stretch"
-                                Margin="4,0"
-                                HorizontalAlignment="Center"
-                                Width="60"
-                                Height="60"
-                                Style="{StaticResource CategoryButtonStyle}"
-                                Background="{ThemeResource SecondaryColor}">
-                            <Image Source="Assets/Icons/convenience.png"
-                                   HorizontalAlignment="Center"
-                                   Height="30"
-                                   Width="30" />
-                        </Button>
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="Convenience"
-                                   FontSize="{ThemeResource CaptionMediumFontSize}"
-                                   Foreground="{ThemeResource PrimaryColor}"
-                                   TextAlignment="Center"
-                                   Margin="4,0" />
-                    </StackPanel>
+                <!-- Delivery Address Section -->
+                <Grid Padding="16,12"
+                      Background="{ThemeResource SurfaceColor}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
                     <StackPanel>
-                        <Button HorizontalAlignment="Center"
-                                Margin="4,0"
-                                Width="60"
-                                Height="60"
-                                Style="{StaticResource CategoryButtonStyle}"
-                                Background="{ThemeResource SecondaryColor}">
-                            <Image Source="Assets/Icons/alcohol.png"
-                                   HorizontalAlignment="Center"
-                                   Height="30"
-                                   Width="30" />
-                        </Button>
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="Alcohol"
-                                   FontSize="{ThemeResource CaptionMediumFontSize}"
-                                   Foreground="{ThemeResource PrimaryColor}"
-                                   TextAlignment="Center"
-                                   Margin="4,0" />
-                    </StackPanel>
-
-                    <StackPanel>
-                        <Button Margin="4,0"
-                                HorizontalAlignment="Center"
-                                Width="60"
-                                Height="60"
-                                Style="{StaticResource CategoryButtonStyle}"
-                                Background="{ThemeResource SecondaryColor}">
-                            <Image Source="Assets/Icons/pet.png"
-                                   HorizontalAlignment="Center"
-                                   Height="30"
-                                   Width="30" />
-                        </Button>
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="Pet Supplies"
-                                   FontSize="{ThemeResource CaptionMediumFontSize}"
-                                   Foreground="{ThemeResource PrimaryColor}"
-                                   TextAlignment="Center"
-                                   Margin="4,0" />
-                    </StackPanel>
-
-                    <StackPanel>
-                        <Button Margin="4,0"
-                                HorizontalAlignment="Center"
-                                Width="60"
-                                Height="60"
-                                Style="{StaticResource CategoryButtonStyle}"
-                                Background="{ThemeResource SecondaryColor}">
-                            <TextBlock Text="..."
-                                       FontSize="{ThemeResource CaptionMediumFontSize}"
-                                       VerticalAlignment="Center"
-                                       Foreground="{ThemeResource OnSecondaryColor}" />
-                        </Button>
-                        <TextBlock HorizontalAlignment="Center"
-                                   Text="More"
-                                   FontSize="{ThemeResource CaptionMediumFontSize}"
-                                   Foreground="{ThemeResource PrimaryColor}"
-                                   TextAlignment="Center"
-                                   Margin="4,0" />
-                    </StackPanel>
-                </StackPanel>
-            </ScrollViewer>
-        </StackPanel>
-
-        <!-- Restaurant List -->
-        <ScrollViewer Grid.Row="1"
-                      Margin="0,16,0,0">
-            <StackPanel Spacing="16">
-                <!-- First Restaurant -->
-                <Grid Margin="16,0"
-                      Background="{ThemeResource OnPrimaryColor}"
-                      CornerRadius="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Image HorizontalAlignment="Center"
-                           Source="Assets/Icons/grocerydeal.png"
-                           Stretch="UniformToFill" />
-                    <Border Background="#4CAF50"
-                            Height="32"
-                            Margin="0,12,72,4"
-                            CornerRadius="0,16,16,0"
-                            VerticalAlignment="Top">
-                        <TextBlock Text="5 orders until $8 reward"
-                                   Foreground="White"
-                                   VerticalAlignment="Center"
-                                   Margin="16,0" />
-                    </Border>
-                    <Button CornerRadius="50"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Background="Transparent"
-                            Margin="0,8,8,0">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
-                                  Glyph="&#xE006;" />
-                    </Button>
-                    <StackPanel Grid.Row="1"
-                                Margin="16,12">
-                        <TextBlock Text="Adenine Kitchen"
-                                   Style="{ThemeResource BodyTextBlockStyle}" />
+                        <TextBlock Text="Deliver now"
+                                   Foreground="{ThemeResource OnSurfaceVariantColor}"
+                                   FontSize="12" />
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="4"
+                                    Spacing="8"
                                     Margin="0,4,0,0">
-                            <TextBlock Text="$0.29 Delivery Fee"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="•"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="10-25 min"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
+                            <TextBlock Text="27 Av de l'Église"
+                                       Foreground="{ThemeResource OnSurfaceColor}"
+                                       FontWeight="SemiBold" />
+                            <FontIcon Glyph="&#xE0E5;"
+                                      FontSize="12"
+                                      Foreground="{ThemeResource OnSurfaceColor}"
+                                      VerticalAlignment="Center" />
                         </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="16">
+                        <Button Background="{ThemeResource SecondaryContainerColor}"
+                                Foreground="{ThemeResource OnSecondaryContainerColor}"
+                                Padding="12,8"
+                                CornerRadius="20">
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <TextBlock Text="Delivery" />
+                                <FontIcon Glyph="&#xE0E5;"
+                                          FontSize="12"
+                                          VerticalAlignment="Center" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Background="Transparent"
+                                Foreground="{ThemeResource OnSurfaceColor}"
+                                Width="40"
+                                Height="40"
+                                Padding="0"
+                                CornerRadius="20">
+                            <FontIcon Glyph="&#xE7BF;" />
+                        </Button>
                     </StackPanel>
                 </Grid>
 
-                <!-- Second Restaurant -->
-                <Grid Margin="16,0"
-                      Background="{ThemeResource OnPrimaryColor}"
-                      CornerRadius="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="160" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Image HorizontalAlignment="Center"
-                           Source="Assets/Icons/restaurant.png"
-                           Stretch="UniformToFill" />
-                    <Button HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            Background="Transparent"
-                            Margin="0,8,8,0">
-                        <FontIcon FontFamily="Segoe MDL2 Assets"
-                                  Glyph="&#xE006;" />
-                    </Button>
-                    <StackPanel Grid.Row="1"
-                                Margin="16,12">
-                        <TextBlock Text="Cardinal Chips"
-                                   Style="{ThemeResource BodyTextBlockStyle}" />
+                <!-- Search Bar -->
+                <Grid Padding="16,12">
+                    <Button Background="{ThemeResource SecondaryContainerColor}"
+                            CornerRadius="24"
+                            HorizontalAlignment="Stretch"
+                            Padding="16,12">
                         <StackPanel Orientation="Horizontal"
-                                    Spacing="4"
-                                    Margin="0,4,0,0">
-                            <TextBlock Text="$0.29 Delivery Fee"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="•"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
-                            <TextBlock Text="10-25 min"
-                                       Opacity="0.6"
-                                       Style="{ThemeResource CaptionTextBlockStyle}" />
+                                    HorizontalAlignment="Left">
+                            <FontIcon Glyph="&#xE721;"
+                                      Foreground="{ThemeResource OnSecondaryContainerColor}" />
+                            <TextBlock Text="Search Uber Eats"
+                                       Foreground="{ThemeResource OnSurfaceVariantColor}"
+                                       Margin="12,0,0,0" />
                         </StackPanel>
-                    </StackPanel>
+                    </Button>
                 </Grid>
 
-                <!-- Promo Section -->
-                <Border Margin="16,0"
-                        Background="#F0F0F0"
-                        CornerRadius="8">
-                    <Grid Background="{ThemeResource TertiaryColor}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                <!-- Food Categories -->
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden"
+                              VerticalScrollBarVisibility="Disabled">
+                    <ItemsRepeater Margin="16,0,0,16"
+                                   ItemsSource="{x:Bind Categories}"
+                                   ItemTemplate="{StaticResource CategoryTemplate}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Horizontal" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
 
-                        <StackPanel Spacing="16"
-                                    Margin="16">
-                            <TextBlock FontSize="{ThemeResource LabelMediumFontSize}"
-                                       Text="Order from these restaurants and save"
-                                       Style="{ThemeResource SubtitleTextBlockStyle}" />
-                            <Button Margin="0,8,0,0"
+                <!-- Filters -->
+                <ScrollViewer HorizontalScrollBarVisibility="Hidden">
+                    <utu:ChipGroup Margin="16,0,16,16"
+                                   SelectionMode="Multiple">
+                        <!-- Use WrapPanel for chip layout with spacing -->
+                        <utu:ChipGroup.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </utu:ChipGroup.ItemsPanel>
+
+                        <!-- Style for individual chips to provide spacing -->
+                        <utu:ChipGroup.Resources>
+                            <Style TargetType="utu:Chip">
+                                <Setter Property="Margin"
+                                        Value="0,0,8,8" />
+                                <Setter Property="Background"
+                                        Value="{ThemeResource SurfaceVariantColor}" />
+                                <Setter Property="Foreground"
+                                        Value="{ThemeResource OnSurfaceVariantColor}" />
+                                <Setter Property="CornerRadius"
+                                        Value="12" />
+                            </Style>
+                        </utu:ChipGroup.Resources>
+
+                        <utu:Chip>
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <FontIcon Glyph="&#xE734;"
+                                          FontSize="12" />
+                                <TextBlock Text="Offers" />
+                            </StackPanel>
+                        </utu:Chip>
+                        <utu:Chip>
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <TextBlock Text="Delivery fee" />
+                                <FontIcon Glyph="&#xE0E5;"
+                                          FontSize="12" />
+                            </StackPanel>
+                        </utu:Chip>
+                        <utu:Chip>
+                            <TextBlock Text="Under 30 min" />
+                        </utu:Chip>
+                        <utu:Chip>
+                            <StackPanel Orientation="Horizontal"
+                                        Spacing="8">
+                                <FontIcon Glyph="&#xE734;"
+                                          FontSize="12" />
+                                <TextBlock Text="Best overall" />
+                            </StackPanel>
+                        </utu:Chip>
+                    </utu:ChipGroup>
+                </ScrollViewer>
+
+                <!-- Service Fees Notice -->
+                <Grid Padding="16,8,16,16">
+                    <TextBlock Text="Service Fees apply to delivery orders."
+                               Foreground="{ThemeResource OnSurfaceVariantColor}"
+                               FontSize="12" />
+                    <HyperlinkButton Content="Learn more"
+                                     Foreground="{ThemeResource TertiaryColor}"
+                                     FontSize="12"
+                                     Padding="0"
+                                     HorizontalAlignment="Right" />
+                </Grid>
+
+                <!-- Stores near you -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Featured on Uber Eats"
+                               Style="{StaticResource SectionHeaderStyle}" />
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            VerticalAlignment="Center"
+                            Margin="0,24,16,12">
+                        <FontIcon Glyph="&#xE0E3;"
+                                  Foreground="{ThemeResource OnBackgroundColor}"
+                                  FontSize="16" />
+                    </Button>
+                </Grid>
+                <Grid Margin="16,0,16,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Restaurant Imperial -->
+                    <Grid Margin="0,0,8,0"
+                          RowDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Image Grid.ColumnSpan="2"
+                                   Height="180"
+                                   Stretch="UniformToFill"
+                                   Source="Assets/Images/imperial.jpeg"
+                                   HorizontalAlignment="Stretch" />
+
+                            <Border Style="{StaticResource PromotionBannerStyle}">
+                                <TextBlock Style="{StaticResource PromotionTextStyle}"
+                                           Text="CA$0 Delivery Fee (Spend CA$15)" />
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Margin="0,12,12,0"
+                                    Padding="8"
                                     Background="Transparent"
-                                    Padding="0">
-                                <StackPanel CornerRadius="14"
-                                            Padding="8,6"
-                                            Margin="4"
-                                            Background="{ThemeResource OnPrimaryColor}"
-                                            Orientation="Horizontal"
-                                            Spacing="4">
-                                    <TextBlock VerticalAlignment="Center"
-                                               FontSize="{ThemeResource CaptionLargeFontSize}"
-                                               Foreground="{ThemeResource PrimaryColor}"
-                                               Text="Browse offer" />
-                                    <FontIcon FontSize="{ThemeResource CaptionLargeFontSize}"
-                                              Foreground="{ThemeResource PrimaryColor}"
-                                              FontFamily="Segoe MDL2 Assets"
-                                              Glyph="&#xE72A;" />
-                                </StackPanel>
+                                    VerticalAlignment="Top">
+                                <FontIcon Glyph="&#xE00B;"
+                                          Foreground="{ThemeResource OnBackgroundColor}" />
                             </Button>
-                        </StackPanel>
+                        </Grid>
 
-                        <Image Grid.Column="1"
-                               Stretch="UniformToFill"
-                               Source="Assets/Icons/savepromo.png"
-                               Height="120"
-                               Width="120" />
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource RestaurantNameStyle}"
+                                       Text="Restaurant Imperial" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,4,0,0">
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="$0 Delivery Fee" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="4.6★" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="(1,000+)"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="20 min"
+                                           Margin="4,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
                     </Grid>
-                </Border>
+
+                    <!-- Restaurant Raja G -->
+                    <Grid Grid.Column="1"
+                          Margin="8,0,0,0"
+                          RowDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Image Grid.ColumnSpan="2"
+                                   Height="180"
+                                   Stretch="UniformToFill"
+                                   Source="Assets/Images/rajag.jpeg"
+                                   HorizontalAlignment="Stretch" />
+
+                            <Border Style="{StaticResource PromotionBannerStyle}">
+                                <TextBlock Style="{StaticResource PromotionTextStyle}"
+                                           Text="4 Offers Available" />
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Margin="0,12,12,0"
+                                    Padding="8"
+                                    Background="Transparent"
+                                    VerticalAlignment="Top">
+                                <FontIcon Glyph="&#xE00B;"
+                                          Foreground="{ThemeResource OnBackgroundColor}" />
+                            </Button>
+                        </Grid>
+
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource RestaurantNameStyle}"
+                                       Text="Restaurant Raja G" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,4,0,0">
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="$0.99 Delivery Fee" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="4.3★" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="(51)"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="10 min"
+                                           Margin="4,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Stores near you"
+                               Style="{StaticResource SectionHeaderStyle}" />
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            VerticalAlignment="Center"
+                            Margin="0,24,16,12">
+                        <FontIcon Glyph="&#xE0E3;"
+                                  Foreground="{ThemeResource OnBackgroundColor}"
+                                  FontSize="16" />
+                    </Button>
+                </Grid>
+
+                <!-- Stores Carousel -->
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled">
+                    <ItemsRepeater Margin="16,0,0,24"
+                                   ItemsSource="{x:Bind Stores}"
+                                   ItemTemplate="{StaticResource StoreTemplate}">
+                        <ItemsRepeater.Layout>
+                            <StackLayout Orientation="Horizontal" />
+                        </ItemsRepeater.Layout>
+                    </ItemsRepeater>
+                </ScrollViewer>
+
+                <!-- Featured on Uber Eats Section -->
+
+                <!-- Featured Restaurants -->
+
+                <!-- Order again section -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!--<TextBlock Text="Order again"
+                               Style="{StaticResource SectionHeaderStyle}" />
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            VerticalAlignment="Center"
+                            Margin="0,24,16,12">
+                        <FontIcon Glyph="&#xE0E3;"
+                                  Foreground="{ThemeResource OnBackgroundColor}"
+                                  FontSize="16" />
+                    </Button>-->
+                </Grid>
+
+                <!-- Order Again Restaurants -->
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <TextBlock Text="Best overall"
+                                   Style="{StaticResource SectionHeaderStyle}" />
+                        <TextBlock Text="Top ratings and consistently great service"
+                                   Foreground="{ThemeResource OnSurfaceVariantColor}"
+                                   FontSize="14"
+                                   Margin="16,-8,0,12" />
+                    </StackPanel>
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            VerticalAlignment="Center"
+                            Margin="0,24,16,12">
+                        <FontIcon Glyph="&#xE0E3;"
+                                  Foreground="{ThemeResource OnBackgroundColor}"
+                                  FontSize="16" />
+                    </Button>
+                </Grid>
+                <ItemsRepeater Margin="0,0,0,16"
+                               ItemsSource="{x:Bind GetOrderAgainRestaurants()}"
+                               ItemTemplate="{StaticResource RestaurantTemplate}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Vertical" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+
+                <!-- Uber One Promotion -->
+                <Grid Background="{StaticResource OrangeBrush}"
+                      Margin="16,0,16,24"
+                      Height="150">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Margin="24,24,0,24"
+                                VerticalAlignment="Center">
+                        <TextBlock Text="CA$0 Delivery Fee + 5% off with Uber One"
+                                   Foreground="White"
+                                   FontSize="18"
+                                   FontWeight="SemiBold"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="200" />
+
+                        <Button Content="Try Now"
+                                Background="White"
+                                Foreground="Black"
+                                Padding="16,8"
+                                CornerRadius="20"
+                                Margin="0,16,0,0" />
+                    </StackPanel>
+
+                    <Image Grid.Column="1"
+                           Source="ms-appx:///Assets/Images/burger.png"
+                           Height="140"
+                           Width="140"
+                           Margin="0,0,16,0"
+                           VerticalAlignment="Center" />
+                </Grid>
+
+                <!-- Places you might like section --><!--
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Places you might like"
+                               Style="{StaticResource SectionHeaderStyle}" />
+
+                    <Button Grid.Column="1"
+                            Background="Transparent"
+                            VerticalAlignment="Center"
+                            Margin="0,24,16,12">
+                        <FontIcon Glyph="&#xE0E3;"
+                                  Foreground="{ThemeResource OnBackgroundColor}"
+                                  FontSize="16" />
+                    </Button>
+                </Grid>-->
+
+                <!-- Places you might like Restaurants --><!--
+                <Grid Margin="16,0,16,24">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    --><!-- McDonald's --><!--
+                    <Grid Grid.Column="0"
+                          Margin="0,0,8,0"
+                          RowDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Image Grid.ColumnSpan="2"
+                                   Height="180"
+                                   Stretch="UniformToFill"
+                                   Source="ms-appx:///Assets/Images/mcdonalds.jpg"
+                                   HorizontalAlignment="Stretch" />
+
+                            <Border Style="{StaticResource PromotionBannerStyle}"
+                                    Background="#FFA500">
+                                <TextBlock Style="{StaticResource PromotionTextStyle}"
+                                           Text="Buy 1, Get 1 Free" />
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Margin="0,12,12,0"
+                                    Padding="8"
+                                    Background="Transparent"
+                                    VerticalAlignment="Top">
+                                <FontIcon Glyph="&#xE00B;"
+                                          Foreground="{ThemeResource OnBackgroundColor}" />
+                            </Button>
+                        </Grid>
+
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource RestaurantNameStyle}"
+                                       Text="McDonald's" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,4,0,0">
+                                <FontIcon Glyph="&#xE734;"
+                                          Foreground="#FFD700"
+                                          FontSize="12"
+                                          VerticalAlignment="Center" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="$4.49 Delivery Fee"
+                                           Margin="4,0,0,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="4.3★" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="(6,000+)"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="10 min"
+                                           Margin="4,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    --><!-- Kelly's Orchard --><!--
+                    <Grid Grid.Column="1"
+                          Margin="8,0,0,0"
+                          RowDefinitions="Auto,Auto">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Image Grid.ColumnSpan="2"
+                                   Height="180"
+                                   Stretch="UniformToFill"
+                                   Source="ms-appx:///Assets/Images/restaurant4.jpg"
+                                   HorizontalAlignment="Stretch" />
+
+                            <Border Style="{StaticResource PromotionBannerStyle}">
+                                <TextBlock Style="{StaticResource PromotionTextStyle}"
+                                           Text="Top Offer • Free item" />
+                            </Border>
+
+                            <Button Grid.Column="1"
+                                    Margin="0,12,12,0"
+                                    Padding="8"
+                                    Background="Transparent"
+                                    VerticalAlignment="Top">
+                                <FontIcon Glyph="&#xE00B;"
+                                          Foreground="{ThemeResource OnBackgroundColor}" />
+                            </Button>
+                        </Grid>
+
+                        <StackPanel Grid.Row="1"
+                                    Margin="0,12,0,0">
+                            <TextBlock Style="{StaticResource RestaurantNameStyle}"
+                                       Text="Kelly's Orchard" />
+
+                            <StackPanel Orientation="Horizontal"
+                                        Margin="0,4,0,0">
+                                <FontIcon Glyph="&#xE734;"
+                                          Foreground="#FFD700"
+                                          FontSize="12"
+                                          VerticalAlignment="Center" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="$0.99 Delivery Fee"
+                                           Margin="4,0,0,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="4.6★" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="(1,500+)"
+                                           Margin="4,0" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="•" />
+
+                                <TextBlock Style="{StaticResource RestaurantInfoTextStyle}"
+                                           Text="15 min"
+                                           Margin="4,0,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                </Grid>-->
+
+                <!-- Best overall section -->
+
+                <!-- Best Rated Restaurants -->
+                <ItemsRepeater Margin="0,0,0,16"
+                               ItemsSource="{x:Bind GetBestRatedRestaurants()}"
+                               ItemTemplate="{StaticResource RestaurantTemplate}">
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Vertical" />
+                    </ItemsRepeater.Layout>
+                </ItemsRepeater>
+
+                <!-- Ensure some padding at the bottom of the page -->
             </StackPanel>
         </ScrollViewer>
     </Grid>
